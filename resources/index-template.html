@@ -1,0 +1,52 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../resources/styles.css" rel="stylesheet" />
+<title>Validation results</title>
+</head>
+<body>
+	<table class="table table-striped table-hover table-condensed">
+		<tr>
+			<th>Report for</th>
+			<th>Errors</th>
+			<th>Warnings</th>
+			<th>Time</th>
+			<th>Original page</th>
+		</tr>
+
+		<tr th:each="result : ${results}" th:class="${result.errors == 0 and result.warnings == 0 ? 'success' : ''}">
+			<td><a
+				href="agent.xsp_symbol=USTAWYALL_NrKadencji=7_NrPosiedzenia=92.html"
+				th:href="${result.fileName}" th:text="${result.fileName}">agent.xsp_symbol=USTAWYALL_NrKadencji=7_NrPosiedzenia=92.html</a></td>
+			<td th:text="${result.errors}" class="text-right">176</td>
+			<td th:text="${result.warnings}" class="text-right">0</td>
+			<td th:text="${result.time}" class="text-right">1000</td>
+			<td><a
+				href="http://tester1/MJ/home_mj.nsf/agent.xsp?symbol=USTAWYALL&amp;NrKadencji=7&amp;NrPosiedzenia=92"
+				th:href="${result.url}" th:text="${result.url}" target="_blank">http://tester1/MJ/home_mj.nsf/agent.xsp?symbol=USTAWYALL&amp;NrKadencji=7&amp;NrPosiedzenia=92</a></td>
+		</tr>
+
+		<tr th:remove="all">
+			<td><a href="agent.xsp_symbol=posglos_NrKadencji=7.html">agent.xsp_symbol=posglos_NrKadencji=7.html</a></td>
+			<td class="text-right">156</td>
+			<td class="text-right">154</td>
+			<td class="text-right">1500</td>
+			<td><a
+				href="http://tester1/MJ/home_mj.nsf/agent.xsp?symbol=posglos&amp;NrKadencji=7"
+				target="_blank">http://tester1/MJ/home_mj.nsf/agent.xsp?symbol=posglos&amp;NrKadencji=7</a></td>
+		</tr>
+
+		<tr th:remove="all">
+			<td><a href="agent.xsp_symbol=PLANPOS.html">agent.xsp_symbol=PLANPOS.html</a></td>
+			<td class="text-right">14</td>
+			<td class="text-right">4</td>
+			<td class="text-right">900</td>
+			<td><a target="_blank"
+				href="http://tester1/MJ/home_mj.nsf/agent.xsp?symbol=PLANPOS">http://tester1/MJ/home_mj.nsf/agent.xsp?symbol=PLANPOS</a></td>
+		</tr>
+	</table>
+</body>
+</html>
