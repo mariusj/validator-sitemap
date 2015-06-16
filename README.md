@@ -1,0 +1,1 @@
+An utility for Nu validator that reads sitemap.xml and validates all URL found in that file. For each URL the validation result is stored in a file. The index.html file contains links to all validation results.
