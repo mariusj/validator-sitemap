@@ -174,18 +174,24 @@ public class SitemapValidator {
 
 			PipedInputStream pis = new PipedInputStream(out, 64 * 1024);
 
-			setErrorHandler(out2);
-			validator.setUpValidatorAndParsers(errorHandler, false, false);
-			Runnable task = () -> {
-				toHTML(pis, fileName + ".html");
-			};
-			new Thread(task).start();
-
 			long time = System.currentTimeMillis();
-			validator.checkHttpURL(new URL(url));
-			time = System.currentTimeMillis() - time;
-			errorHandler.end("ok", "fail");
-			out2.close();
+			
+			try {
+
+				setErrorHandler(out2);
+				validator.setUpValidatorAndParsers(errorHandler, false, false);
+				Runnable task = () -> {
+					toHTML(pis, fileName + ".html");
+				};
+				new Thread(task, fileName).start();
+	
+				validator.checkHttpURL(new URL(url));
+				time = System.currentTimeMillis() - time;
+				errorHandler.end("ok", "fail");
+			} finally {
+				out2.close();
+				out.close();
+			}
 
 			int errors = errorHandler.getErrors()
 					+ errorHandler.getFatalErrors();
